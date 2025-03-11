@@ -1,0 +1,95 @@
+package cc;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+public final class UpdateForm {
+    Connection con;
+    Scanner s1;
+    PreparedStatement ps;
+    ResultSet rs;
+    String Application_id, FirstName, LastName, Gender, DOB, Phone_number, Refrence_number, Email_id, Address, Category, col, value;
+
+    public UpdateForm(Connection con, Scanner s1, PreparedStatement ps) {
+        this.con = con;
+        this.s1 = s1;
+        this.ps = ps;
+        UpdateMethod();
+    }
+
+    public void UpdateMethod() {
+        System.out.println("Enter First Name of the record you want to update:");
+        FirstName = s1.next();
+        System.out.println("Enter Last Name:");
+        LastName = s1.next();
+        checkRecord();
+    }
+
+    public void checkRecord() {
+        try {
+            ps = con.prepareStatement("SELECT * FROM AdmissionForm WHERE FirstName = ? AND LastName = ?");
+            ps.setString(1, FirstName);
+            ps.setString(2, LastName);
+            rs = ps.executeQuery(); 
+
+            if (rs.next()) {
+                FirstName = rs.getString("FirstName");
+                LastName = rs.getString("LastName");
+                Gender = rs.getString("Gender");
+                DOB = rs.getString("DOB");
+                Phone_number = rs.getString("Phone_number");
+                Refrence_number = rs.getString("Refrence_number");
+                Email_id = rs.getString("Email_id");
+                Address = rs.getString("Address");
+                Category = rs.getString("Category");
+
+                System.out.println("Admission Form Details");
+                System.out.println("First name: " + FirstName);
+                System.out.println("Last Name: " + LastName);
+                System.out.println("Gender: " + Gender);
+                System.out.println("DOB: " + DOB);
+                System.out.println("Phone number: " + Phone_number);
+                System.out.println("Refrence number: " + Refrence_number);
+                System.out.println("Email id: " + Email_id);
+                System.out.println("Address: " + Address);
+                System.out.println("Category: " + Category);
+                UpdateRecord();
+            } else {
+                System.out.println("Record not found");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    public void UpdateRecord() {
+        System.out.println("Enter column name to update (FirstName, LastName, Phone_number, Gender, DOB, Refrence_number, Email_id, Address, Category):");
+        col = s1.next();
+
+        if (!col.matches("Application_id|FirstName|LastName|Phone_number|Gender|DOB|Refrence_number|Email_id|Address|Category")) {
+            System.out.println("Invalid column name!");
+            return;
+        }
+
+        System.out.println("Enter new value for " + col + ":");
+        value = s1.next();
+
+        try {
+            ps = con.prepareStatement("UPDATE AdmissionForm SET " + col + " = ? WHERE Application_id = ?");
+            ps.setString(1, value);
+            ps.setString(2, Application_id); 
+
+            int i = ps.executeUpdate(); 
+            if (i > 0) {
+                System.out.println("Record Updated Successfully!");
+            } else {
+                System.out.println("Record not found!");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
