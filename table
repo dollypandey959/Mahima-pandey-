@@ -1,0 +1,20 @@
+CREATE TABLE admissionform (
+  Application_id varchar(50) NOT NULL,
+  FirstName varchar(50) DEFAULT NULL,
+  LastName varchar(50) DEFAULT NULL,
+  Gender varchar(10) DEFAULT NULL,
+ DOB varchar(50) DEFAULT NULL,
+  Phone_number varchar(15) DEFAULT NULL,
+  Refrence_number  varchar(50) DEFAULT NULL,
+  Email_id varchar(100) DEFAULT NULL,
+  Address text,
+  Category varchar(50) DEFAULT NULL,
+  PRIMARY KEY (Application_id)
+)
+
+
+
+ CREATE TABLE collage_admission (
+  un varchar(10) DEFAULT NULL,
+  pass int DEFAULT NULL
+)
