@@ -1,0 +1,77 @@
+package cc;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.Scanner; 
+
+public final class applyadmission
+{
+    Connection con;
+    Scanner s1;
+    PreparedStatement ps;
+    int ch;
+
+    
+    public applyadmission(Connection con, Scanner s1, PreparedStatement ps) {
+        this.s1 = s1;
+        this.con = con;
+        this.ps = ps;
+        showapplyadmission();
+    }
+
+    
+    public void showapplyadmission()
+    {
+        System.out.println("\n--Apply for Admission---");
+        System.out.println("1.Admission form ");
+        System.out.println("2.Update record");
+        System.out.println("3.Show record");
+        System.out.println("4.Search record");
+        System.out.println("5.Delete record");
+        System.out.println("6.Sumbit");
+        System.out.println("7.Exit");
+        
+        
+        
+
+        System.out.println("Enter your choice:");
+
+        ch = s1.nextInt();
+
+        switch (ch) {
+            case 1:
+                new AdmissionForm(con,s1,ps);
+                break;
+            case 2:
+                new UpdateForm(con,s1,ps);
+                break;
+            case 3:
+               new ShowForm(con,s1,ps);
+                break;
+            
+            case 4:
+                new SearchForm(con,s1,ps);
+                break;
+            case 5:
+                new DeleteRec(con,s1,ps);
+                break;
+            case 6:
+                System.out.println("Sumbit");
+                return;
+                
+           case 7:
+                System.out.println("Exit");
+                System.exit(0);
+                
+             
+             
+            default:
+                System.out.println("Invalid choice.");
+                break;
+        }
+    }
+
+    
+
+    
+}
