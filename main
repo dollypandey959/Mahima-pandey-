@@ -1,0 +1,18 @@
+package aa;
+
+import java.util.Scanner;
+import bb.Loginpage;
+
+public class main
+{
+    public static void main(String[] args)
+    {
+        Scanner s1=new Scanner (System.in);
+        Loginpage obj=new Loginpage(s1);
+        
+        obj.insert();
+        obj.validate();
+    }
+
+    
+}
