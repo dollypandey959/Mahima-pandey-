@@ -1,0 +1,68 @@
+package cc;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+public final class ShowForm {
+    Connection con;
+    Scanner s1;
+    PreparedStatement ps;
+    ResultSet rs;
+
+    
+    public ShowForm(Connection con, Scanner s1, PreparedStatement ps) {
+        this.con = con;
+        this.s1 = s1;
+        this.ps = ps;
+        showAll();
+    }
+
+    public void showAll() {
+        try {
+            
+            ps = con.prepareStatement("SELECT * FROM AdmissionForm");
+            rs = ps.executeQuery();
+
+            System.out.println("\n===== AdmissionForm Record =====");
+
+             
+
+            int i =1;
+            while (rs.next()) {
+                String FirstName= rs.getString("FirstName");
+                String LastName = rs.getString("LastName");
+                String Gender= rs.getString("Gender");
+                String DOB= rs.getString("DOB");
+                String Phone_number = rs.getString("Phone_number");
+                String Refrence_number= rs.getString("Refrence_number");
+                String Email_id= rs.getString("Email_id");
+                String Address= rs.getString("Address");
+                String Category= rs.getString("Category");
+
+                System.out.println(i +" .Admission Form Details");
+                System.out.println("First name: " + FirstName);
+                System.out.println("Last Name: " + LastName);
+                System.out.println("Gender: " + Gender);
+                System.out.println("DOB: " + DOB);
+                System.out.println("Phone number: " + Phone_number);
+                System.out.println("Refrence number: " + Refrence_number);
+                System.out.println("Email id: " + Email_id);
+                System.out.println("Address: " + Address);
+                System.out.println("Category: " + Category);
+                System.out.println("--------------------");
+                i++; 
+            }
+
+            
+            if (i == 1) {
+                System.out.println("No Admission Form Records Found.");
+            }
+
+        } catch (SQLException ee) {
+            System.out.println("Error: " + ee.getMessage());
+        }
+    }
+}
