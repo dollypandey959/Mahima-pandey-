@@ -1,0 +1,64 @@
+package bb;
+
+
+import cc.applyadmission;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.util.Scanner;
+
+
+
+public final class menupage
+{
+    Connection con;
+    Scanner s1;
+    PreparedStatement ps;
+    int ch;
+    
+    public menupage(Scanner s1)
+    {
+        this.s1=s1;
+        this.show_menu(s1);
+    }
+    public menupage(Connection con,Scanner s1,PreparedStatement ps)
+    {
+        this.s1=s1;
+        this.con=con;
+        this.ps=ps;
+            System.out.println("Login page succesfull");
+            show_menu(s1);
+    }
+    public void show_menu(Scanner s1)
+    {
+        System.out.println("\n --- Collage Admission System ---");
+        System.out.println("1.Apply For Admission");
+        System.out.println("2.Logout");
+        System.out.println("3.Exit");
+        System.out.println("Enter your choice:-");
+        
+        ch=s1.nextInt();
+        
+        switch(ch)
+        {
+          
+            
+            case 1:
+                new applyadmission(con,s1,ps);
+                break;
+                
+           
+                
+           case 2:
+                System.out.println("Logout");
+                return;
+                
+             case 3:
+                System.out.println("Exit");
+                System.exit(0);
+                
+             default:System.out.println("Invalid Enter Your Choice ! Please try again");
+
+        }
+    }
+    
+}
